@@ -90,7 +90,9 @@
                                         </constraints>
                                         <state key="normal" title="Button" image="windmill"/>
                                         <connections>
-                                            <segue destination="o7d-yy-efx" kind="show" identifier="ResultSegue" id="9UN-RF-45y"/>
+                                            <action selector="startButtonTouchDown:" destination="BYZ-38-t0r" eventType="touchDown" id="EDe-o8-PcL"/>
+                                            <action selector="startButtonTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ks6-gL-Zub"/>
+                                            <segue destination="o7d-yy-efx" kind="presentation" identifier="ResultSegue" id="9UN-RF-45y"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -106,7 +108,7 @@
                                 </constraints>
                                 <segments>
                                     <segment title="经典版"/>
-                                    <segment title="进阶版"/>
+                                    <segment title="升级版"/>
                                 </segments>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <variation key="default">
@@ -163,15 +165,20 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="gameSegment" destination="S5Q-kv-5rZ" id="9gA-Iz-HGD"/>
+                        <outlet property="pokerImageView" destination="gx1-oU-Oac" id="K5k-xu-0Yp"/>
+                        <outlet property="startButton" destination="rJ9-Kl-b9Q" id="2Pv-WT-6db"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-535.546875" y="-179.64860907759882"/>
         </scene>
-        <!--View Controller-->
+        <!--Result View Controller-->
         <scene sceneID="3tX-Jy-uQv">
             <objects>
-                <viewController id="o7d-yy-efx" sceneMemberID="viewController">
+                <viewController id="o7d-yy-efx" customClass="ResultViewController" customModule="KingsCup" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rwu-UJ-RdJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -249,6 +256,9 @@
                                                 <include reference="frN-py-Ahv"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <segue destination="hAU-ei-K2E" kind="unwind" unwindAction="unwindToViewControllerWithSegue:" id="dug-q1-6ca"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <variation key="heightClass=regular-widthClass=compact" spacing="20"/>
@@ -312,6 +322,7 @@
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jd7-6T-pXm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="hAU-ei-K2E" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="246.09375" y="-181.640625"/>
         </scene>
