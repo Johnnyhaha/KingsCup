@@ -12,6 +12,7 @@
 		2D8A9E2A1FA986140067418F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D8A9E281FA986140067418F /* Main.storyboard */; };
 		2D8A9E2C1FA986140067418F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D8A9E2B1FA986140067418F /* Assets.xcassets */; };
 		2D8A9E2F1FA986140067418F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D8A9E2D1FA986140067418F /* LaunchScreen.storyboard */; };
+		2D8A9E5F1FAACD0B0067418F /* Amano.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 2D8A9E5E1FAACD0B0067418F /* Amano.TTF */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		2D8A9E2B1FA986140067418F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2D8A9E2E1FA986140067418F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2D8A9E301FA986140067418F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2D8A9E5E1FAACD0B0067418F /* Amano.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = Amano.TTF; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 				2D8A9E261FA986140067418F /* ViewController.swift */,
 				2D8A9E281FA986140067418F /* Main.storyboard */,
 				2D8A9E2B1FA986140067418F /* Assets.xcassets */,
+				2D8A9E5E1FAACD0B0067418F /* Amano.TTF */,
 				2D8A9E2D1FA986140067418F /* LaunchScreen.storyboard */,
 				2D8A9E301FA986140067418F /* Info.plist */,
 			);
@@ -124,6 +127,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D8A9E2F1FA986140067418F /* LaunchScreen.storyboard in Resources */,
+				2D8A9E5F1FAACD0B0067418F /* Amano.TTF in Resources */,
 				2D8A9E2C1FA986140067418F /* Assets.xcassets in Resources */,
 				2D8A9E2A1FA986140067418F /* Main.storyboard in Resources */,
 			);
