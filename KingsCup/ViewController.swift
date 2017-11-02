@@ -8,14 +8,21 @@
 
 import UIKit
 import AVFoundation
+import SafariServices
+import MessageUI
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
     @IBOutlet weak var gameSegment: UISegmentedControl!
     @IBOutlet weak var pokerImageView: UIImageView!
     @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var muteButton: UIButton!
+    
     
     var timer = Timer()
+    var gameModels: [GameModel]!
+    var player: AVAudioPlayer = AVAudioPlayer()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +35,17 @@ class ViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        do
+        {
+            let audioPath = Bundle.main.path(forResource: "sound", ofType: "mp3")
+            try player = AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath!) as URL)
+            player.numberOfLoops = -1
+        }
+        catch
+        {
+            
+        }
+        player.play()
         updateUI()
     }
 
@@ -40,6 +58,8 @@ class ViewController: UIViewController {
         }
         self.startButton.center.x -= offset
         self.pokerImageView.center.x += offset
+        self.startButton.alpha = 1.0
+        self.pokerImageView.alpha = 1.0
         
         UIView.animate(withDuration: 1.0, animations: {
             let rotateTransform = CGAffineTransform(rotationAngle: .pi)
@@ -47,21 +67,22 @@ class ViewController: UIViewController {
             self.startButton.center.x = startButtonCenterX
             self.pokerImageView.center.x = startpokerImageViewCenterX
         }) { (_) in
-            UIView.animate(withDuration: 1.5, delay: 0.0, options: .repeat, animations: {
-                self.startButton.transform = CGAffineTransform.identity
-                let scaleTransform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-                self.startButton.transform = scaleTransform
-                print("123")
-            }, completion: nil)
+            self.startButton.transform = CGAffineTransform.identity
         }
     }
     
+    
     @IBAction func startButtonTouchDown(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.2, delay: 0.0, options: .repeat, animations: {
+        if self.gameSegment.selectedSegmentIndex == 0 {
+            self.gameModels = classicGameModels
+        } else {
+            self.gameModels = advancedGameModels
+        }
+        
+        UIView.animate(withDuration: 0.1, delay: 0.0, options: .repeat, animations: {
             let rotateTransform = CGAffineTransform(rotationAngle: .pi)
             self.startButton.transform = rotateTransform
-            self.timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(ViewController.setPokerImageView), userInfo: nil, repeats: true)
-            print("234")
+            self.timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(ViewController.setPokerImageView), userInfo: nil, repeats: true)
         }, completion: nil)
     }
     
@@ -71,11 +92,65 @@ class ViewController: UIViewController {
     }
     
     @IBAction func startButtonTouchUpInside(_ sender: UIButton) {
+        self.startButton.alpha = 0.0
+        self.pokerImageView.alpha = 0.0
         self.timer.invalidate()
-        performSegue(withIdentifier: "ResultSegue", sender: startButton)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "ResultSegue" else { return }
+        let resultViewController = segue.destination as! ResultViewController
+        resultViewController.newGameModels = self.gameModels
     }
     
     @IBAction func unwindToViewController(segue: UIStoryboardSegue) {
     }
+    
+    
+    @IBAction func muteButtonTapped(_ sender: UIButton) {
+        muteButton.isSelected = !muteButton.isSelected
+        if muteButton.isSelected {
+            player.pause()
+        } else {
+            player.play()
+        }
+    }
+    
+    @IBAction func emailButton(_ sender: UIButton) {
+        guard MFMailComposeViewController.canSendMail() else {return}
+        
+        let mailCompose = MFMailComposeViewController()
+        mailCompose.mailComposeDelegate = self
+        
+        mailCompose.setToRecipients(["jeasony.liu@gmail.com"])
+        mailCompose.setSubject("KingsCup - Feedback")
+        mailCompose.setMessageBody("I have some great ideas for you or bug report!", isHTML: false)
+        
+        present(mailCompose, animated: true, completion: nil)
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func shareButton(_ sender: UIButton) {
+        let itunsAddress =  "分享金陵十三钗 https://itunes.apple.com/cn/app/tim-qq%E5%8A%9E%E5%85%AC%E7%AE%80%E6%B4%81%E7%89%88/id1175213887?mt=8"
+        
+        let acitvityViewController = UIActivityViewController(activityItems: [itunsAddress], applicationActivities: nil)
+        acitvityViewController.popoverPresentationController?.sourceView = sender
+        
+        present(acitvityViewController, animated: true, completion: nil)
+    }
+    
+    @IBAction func likeButton(_ sender: UIButton) {
+        if let url = URL(string: "https://itunes.apple.com/cn/app/tim-qq%E5%8A%9E%E5%85%AC%E7%AE%80%E6%B4%81%E7%89%88/id1175213887?mt=8") {
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func informButton(_ sender: UIButton) {
+    }
+    
 }
 

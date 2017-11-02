@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 struct GameModel {
     var id: Int
     var title: String
