@@ -25,14 +25,14 @@ class ResultViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        nextPlayerButton.alpha = 0.0
     }
     
     override func viewDidAppear(_ animated: Bool) {
         if nextPlayerButton.layer.borderWidth == 40 {
             nextPlayerButton.layer.cornerRadius = 12
         } else {
-            nextPlayerButton.layer.cornerRadius = 18
+            nextPlayerButton.layer.cornerRadius = 25
         }
         
         updateUI()
@@ -55,6 +55,7 @@ class ResultViewController: UIViewController {
         self.pokerImageView.image = UIImage(named: self.pokerSuits[pokerSuitsId]! + self.pokerDictionary[gameId]!)
         
         UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: .curveEaseInOut, animations: {
+            self.nextPlayerButton.alpha = 1.0
             self.titleLabel.center.y = titleLabelCenterY
             self.descriptionTextView.center.y = descriptionTextViewCenterY
             self.pokerImageView.center.y = PokerImageViewCenterY
