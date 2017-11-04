@@ -17,6 +17,7 @@
 		2D8A9E2F1FA986140067418F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D8A9E2D1FA986140067418F /* LaunchScreen.storyboard */; };
 		2D8A9E5F1FAACD0B0067418F /* Amano.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 2D8A9E5E1FAACD0B0067418F /* Amano.TTF */; };
 		2DFFCAC01FABFE1300974C6D /* informViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DFFCABF1FABFE1300974C6D /* informViewController.swift */; };
+		2DFFCAC21FAC9A3800974C6D /* SKStoreReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DFFCAC11FAC9A3800974C6D /* SKStoreReview.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		2D8A9E301FA986140067418F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D8A9E5E1FAACD0B0067418F /* Amano.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = Amano.TTF; sourceTree = "<group>"; };
 		2DFFCABF1FABFE1300974C6D /* informViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = informViewController.swift; sourceTree = "<group>"; };
+		2DFFCAC11FAC9A3800974C6D /* SKStoreReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKStoreReview.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,10 +67,11 @@
 			isa = PBXGroup;
 			children = (
 				2D8A9E241FA986140067418F /* AppDelegate.swift */,
+				2D8A9E281FA986140067418F /* Main.storyboard */,
 				2D8A9E261FA986140067418F /* ViewController.swift */,
 				2D1B66121FAB2684004F7F6D /* ResultViewController.swift */,
 				2DFFCABF1FABFE1300974C6D /* informViewController.swift */,
-				2D8A9E281FA986140067418F /* Main.storyboard */,
+				2DFFCAC11FAC9A3800974C6D /* SKStoreReview.swift */,
 				2D1B66101FAB0308004F7F6D /* GameModel.swift */,
 				2D8A9E2B1FA986140067418F /* Assets.xcassets */,
 				2D1B660E1FAB02BB004F7F6D /* sound.mp3 */,
@@ -154,6 +157,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D8A9E271FA986140067418F /* ViewController.swift in Sources */,
+				2DFFCAC21FAC9A3800974C6D /* SKStoreReview.swift in Sources */,
 				2D8A9E251FA986140067418F /* AppDelegate.swift in Sources */,
 				2D1B66111FAB0309004F7F6D /* GameModel.swift in Sources */,
 				2DFFCAC01FABFE1300974C6D /* informViewController.swift in Sources */,
@@ -297,6 +301,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9NNKG45Q2D;
 				INFOPLIST_FILE = KingsCup/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Johnny.KingsCup;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -312,6 +317,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9NNKG45Q2D;
 				INFOPLIST_FILE = KingsCup/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Johnny.KingsCup;
 				PRODUCT_NAME = "$(TARGET_NAME)";

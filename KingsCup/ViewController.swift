@@ -8,7 +8,6 @@
 
 import UIKit
 import AVFoundation
-import SafariServices
 import MessageUI
 
 class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
@@ -27,7 +26,9 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = true // 隐藏导航条
+        
+        // 设置播放音乐路径 循环播放
         do
         {
             let audioPath = Bundle.main.path(forResource: "sound", ofType: "mp3")
@@ -38,7 +39,16 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         {
             
         }
-        player.play()
+        // 设置应用是否开启音效 从未设置静音开关默认播放音乐
+        if UserDefaults.standard.object(forKey: "setMute") == nil {
+            player.play()
+        } else {
+            // 设置过静音开关与否，以上次推出应用前保存的设置来判断是否播放音乐 静音图标是否切换
+            if !UserDefaults.standard.bool(forKey: "setMute") {
+                player.play()
+            }
+            muteButton.isSelected = UserDefaults.standard.bool(forKey: "setMute")
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,8 +58,10 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         updateUI()
+        showReview() // 应用内评分
     }
 
+    // 扑克图片和开始游戏按钮分别从视图左右侧滑动到中央的动画
     func updateUI() {
         let startButtonCenterX = self.startButton.center.x
         let startpokerImageViewCenterX = self.pokerImageView.center.x
@@ -72,21 +84,23 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         }
     }
     
-    
     @IBAction func startButtonTouchDown(_ sender: UIButton) {
+        // segment选定游戏模型是经典版还是升级版
         if self.gameSegment.selectedSegmentIndex == 0 {
             self.gameModels = classicGameModels
         } else {
             self.gameModels = advancedGameModels
         }
         
-        UIView.animate(withDuration: 0.1, delay: 0.0, options: .repeat, animations: {
+        // 0.2秒间隔更改设置图片
+        self.timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(ViewController.setPokerImageView), userInfo: nil, repeats: true)
+        // 开始游戏按钮循环旋转动画
+        UIView.animate(withDuration: 0.1, delay: 0.0, options: [.repeat,], animations: {
             let rotateTransform = CGAffineTransform(rotationAngle: .pi)
             self.startButton.transform = rotateTransform
-            self.timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(ViewController.setPokerImageView), userInfo: nil, repeats: true)
         }, completion: nil)
     }
-    
+    // 设置扑克图片 随机四选一
     @objc func setPokerImageView() {
         let randomImage = Int(arc4random()%4) + 1
         self.pokerImageView.image = UIImage(named: "\(randomImage)")
@@ -107,9 +121,10 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
     @IBAction func unwindToViewController(segue: UIStoryboardSegue) {
     }
     
-    
+    // 静音
     @IBAction func muteButtonTapped(_ sender: UIButton) {
         muteButton.isSelected = !muteButton.isSelected
+        UserDefaults.standard.set(muteButton.isSelected, forKey: "setMute") // 保存静音开关设置
         if muteButton.isSelected {
             player.pause()
         } else {
@@ -117,6 +132,7 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         }
     }
     
+    // 邮箱反馈
     @IBAction func emailButton(_ sender: UIButton) {
         guard MFMailComposeViewController.canSendMail() else {return}
         
@@ -129,13 +145,14 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         
         present(mailCompose, animated: true, completion: nil)
     }
-    
+    // 发送email完成后，清除邮件组成视图，回到原来的视图。
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         dismiss(animated: true, completion: nil)
     }
     
+    // 分享应用
     @IBAction func shareButton(_ sender: UIButton) {
-        let itunsAddress =  "分享金陵十三钗 https://itunes.apple.com/cn/app/tim-qq%E5%8A%9E%E5%85%AC%E7%AE%80%E6%B4%81%E7%89%88/id1175213887?mt=8"
+        let itunsAddress =  "金陵十三钗行酒令 pro，作者：黑白灰 https://itunes.apple.com/cn/app/?mt=8"
         
         let acitvityViewController = UIActivityViewController(activityItems: [itunsAddress], applicationActivities: nil)
         acitvityViewController.popoverPresentationController?.sourceView = sender
@@ -143,15 +160,19 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         present(acitvityViewController, animated: true, completion: nil)
     }
     
+    // 应用外跳转App Store评价
     @IBAction func likeButton(_ sender: UIButton) {
-        if let url = URL(string: "https://itunes.apple.com/cn/app/tim-qq%E5%8A%9E%E5%85%AC%E7%AE%80%E6%B4%81%E7%89%88/id1175213887?mt=8") {
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
+        if let url = URL(string: "https://itunes.apple.com/cn/app/?mt=8") {
+            //根据iOS系统版本，分别处理
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url, options: [:],
+                                          completionHandler: {
+                                            (success) in
+                })
+            } else {
+                UIApplication.shared.openURL(url)
+            }
         }
     }
-    
-    @IBAction func informButton(_ sender: UIButton) {
-    }
-    
 }
 

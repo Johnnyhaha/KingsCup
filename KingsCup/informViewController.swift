@@ -20,10 +20,12 @@ class informViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // 视图即将出现时 显示导航条
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
 
+    // 视图即将消失时 隐藏导航条
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
