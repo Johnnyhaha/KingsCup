@@ -162,7 +162,7 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
     // 应用外跳转App Store评价
     @IBAction func likeButton(_ sender: UIButton) {
-        if let url = URL(string: "https://itunes.apple.com/cn/app/?mt=8") {
+        if let url = URL(string: "https://itunes.apple.com/cn/app/KingsCupPro/id1307517393?mt=8") {
             //根据iOS系统版本，分别处理
             if #available(iOS 10, *) {
                 UIApplication.shared.open(url, options: [:],

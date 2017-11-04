@@ -29,7 +29,7 @@
                                 <rect key="frame" x="37" y="409.5" width="246" height="30.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gIO-FB-Hkb">
-                                        <rect key="frame" x="0.0" y="0.5" width="31" height="30.5"/>
+                                        <rect key="frame" x="0.0" y="0.5" width="31.5" height="30.5"/>
                                         <color key="backgroundColor" red="0.019607843140000001" green="0.45882352939999999" blue="0.64705882349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="gIO-FB-Hkb" secondAttribute="height" multiplier="1:1" id="rwU-Vk-Bdy"/>
@@ -42,7 +42,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Ib-2d-ofu">
-                                        <rect key="frame" x="53.5" y="0.5" width="31.5" height="30.5"/>
+                                        <rect key="frame" x="54" y="0.5" width="31" height="30.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="4Ib-2d-ofu" secondAttribute="height" multiplier="1:1" id="X54-mj-oib"/>
                                         </constraints>
@@ -53,7 +53,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="buN-IS-o1M">
-                                        <rect key="frame" x="107.5" y="0.5" width="31" height="30.5"/>
+                                        <rect key="frame" x="107.5" y="0.5" width="31.5" height="30.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="buN-IS-o1M" secondAttribute="height" multiplier="1:1" id="qMY-rJ-QFS"/>
                                         </constraints>
@@ -64,7 +64,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mlv-6X-OLH">
-                                        <rect key="frame" x="161" y="0.5" width="31.5" height="30.5"/>
+                                        <rect key="frame" x="161.5" y="0.5" width="31" height="30.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Mlv-6X-OLH" secondAttribute="height" multiplier="1:1" id="6Ph-UQ-wNn"/>
                                         </constraints>
