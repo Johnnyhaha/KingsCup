@@ -152,7 +152,7 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
     // 分享应用
     @IBAction func shareButton(_ sender: UIButton) {
-        let itunsAddress =  "金陵十三钗行酒令 pro，作者：黑白灰 https://itunes.apple.com/cn/app/?mt=8"
+        let itunsAddress =  "金陵十三钗行酒令 pro，作者：黑白灰 https://itunes.apple.com/cn/app/KingsCupPro/id1307517393?mt=8"
         
         let acitvityViewController = UIActivityViewController(activityItems: [itunsAddress], applicationActivities: nil)
         acitvityViewController.popoverPresentationController?.sourceView = sender
