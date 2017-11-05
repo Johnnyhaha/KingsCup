@@ -9,8 +9,9 @@
 import UIKit
 import AVFoundation
 import MessageUI
+import GoogleMobileAds
 
-class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
+class ViewController: UIViewController, MFMailComposeViewControllerDelegate, GADInterstitialDelegate {
 
     @IBOutlet weak var gameSegment: UISegmentedControl!
     @IBOutlet weak var pokerImageView: UIImageView!
@@ -21,11 +22,12 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
     var timer = Timer()
     var gameModels: [GameModel]!
     var player: AVAudioPlayer = AVAudioPlayer()
+    var interstitial: GADInterstitial!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
         self.navigationController?.isNavigationBarHidden = true // 隐藏导航条
         
         // 设置播放音乐路径 循环播放
@@ -49,6 +51,20 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
             }
             muteButton.isSelected = UserDefaults.standard.bool(forKey: "setMute")
         }
+        
+        interstitial = createAndLoadInterstitial()
+    }
+    
+    // 加载AdMob广告
+    func createAndLoadInterstitial() -> GADInterstitial {
+        var interstitial = GADInterstitial(adUnitID: "ca-app-pub-9146539035038995/5035079427")
+        interstitial.delegate = self
+        interstitial.load(GADRequest())
+        return interstitial
+    }
+    
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        interstitial = createAndLoadInterstitial()
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,6 +73,15 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        // 展示AdMob广告
+        if interstitial.isReady {
+            interstitial.present(fromRootViewController: self)
+        } else {
+            print("Ad wasn't ready")
+        }
+        
+        interstitial = createAndLoadInterstitial()
+        
         updateUI()
         showReview() // 应用内评分
     }
@@ -152,7 +177,7 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
     // 分享应用
     @IBAction func shareButton(_ sender: UIButton) {
-        let itunsAddress =  "金陵十三钗行酒令，作者：黑白灰 https://itunes.apple.com/cn/app/KingsCup/id?mt=8"
+        let itunsAddress =  "金陵十三钗Lite-超好玩的行酒令，作者：黑白灰 https://itunes.apple.com/cn/app/KingsCup/id1307947714?mt=8"
         
         let acitvityViewController = UIActivityViewController(activityItems: [itunsAddress], applicationActivities: nil)
         acitvityViewController.popoverPresentationController?.sourceView = sender
@@ -162,7 +187,7 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
     // 应用外跳转App Store评价
     @IBAction func likeButton(_ sender: UIButton) {
-        if let url = URL(string: "https://itunes.apple.com/cn/app/KingsCup/id?mt=8") {
+        if let url = URL(string: "https://itunes.apple.com/cn/app/KingsCup/id1307947714?mt=8") {
             //根据iOS系统版本，分别处理
             if #available(iOS 10, *) {
                 UIApplication.shared.open(url, options: [:],
